@@ -4,7 +4,8 @@ import { getAuth,
     GoogleAuthProvider, 
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
-    signOut
+    signOut,
+    onAuthStateChanged
 } from "firebase/auth";
 import { getFirestore, getDoc, setDoc, doc } from "firebase/firestore";
 
@@ -95,8 +96,7 @@ export const logAuthUserWithEmailAndPassword = async (email, password) => {
 
 export const logGoogleUser = async () => {
     try {
-        const response = await signInWithGooglePopup();
-        createUserDocumentFromAuth(response.user);
+        await signInWithGooglePopup();
     } catch (error) {
         alert("cannot authenticate using google", error.message);
     }
@@ -110,4 +110,11 @@ export const signOutUser = async () => {
     } catch(error) {
         console.log("could not sign out user", error.message);
     }
+}
+
+// observe a auth state change
+export const onAuthStateChangedListener = (callbackFn) => {
+    // whenever "auth" state is changed, the callbackFn runs
+    // i.e listener to "auth"
+    return onAuthStateChanged(auth, callbackFn);
 }

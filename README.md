@@ -68,3 +68,12 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+### Personal notes
+
+
+when you refresh the page, userContext gets reset. 
+But Firebase knows that the user is still signed in. Firebase Auth 
+persists user login data across refresh. So, on a refresh we have to manually 
+make a firebsae call to signout.  
