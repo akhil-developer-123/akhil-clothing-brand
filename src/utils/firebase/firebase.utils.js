@@ -3,7 +3,8 @@ import { getAuth,
     signInWithPopup, 
     GoogleAuthProvider, 
     createUserWithEmailAndPassword,
-    signInWithEmailAndPassword
+    signInWithEmailAndPassword,
+    signOut
 } from "firebase/auth";
 import { getFirestore, getDoc, setDoc, doc } from "firebase/firestore";
 
@@ -98,5 +99,15 @@ export const logGoogleUser = async () => {
         createUserDocumentFromAuth(response.user);
     } catch (error) {
         alert("cannot authenticate using google", error.message);
+    }
+}
+
+export const signOutUser = async () => {
+    try {
+        const signOutResponse = await signOut(auth);
+        console.log(signOutResponse);
+        return signOutResponse;
+    } catch(error) {
+        console.log("could not sign out user", error.message);
     }
 }
