@@ -1,10 +1,11 @@
-import { useState } from "react"; 
+import { useState, useContext } from "react"; 
 import { logAuthUserWithEmailAndPassword, 
         createUserDocumentFromAuth, 
         logGoogleUser 
         } from "../../../../utils/firebase/firebase.utils";
 import '../../sign-up/sign-up-form/sign-up-form.styles.scss';
 import Button from "../../../button/Button.component";
+import { UserContext } from "../../../../contexts/user.context";
 
 const SignInForm = () => {
 
@@ -12,6 +13,8 @@ const SignInForm = () => {
         email: '',
         password: ''
     }
+
+    const { currentUser, setCurrentUser } = useContext(UserContext);
 
     const [ loginFormFields, setLoginFormFields  ] = useState(defaultLoginFormFields); 
     console.log(loginFormFields);
@@ -30,6 +33,8 @@ const SignInForm = () => {
             const authenticatedUser = await logAuthUserWithEmailAndPassword(email, password);
             await createUserDocumentFromAuth(authenticatedUser);
             console.log("user logged in successfully!");
+            setCurrentUser(authenticatedUser);
+            console.log("current user set!");
         } catch (error) {
             console.log("cannot authenticate user", error);
         }
