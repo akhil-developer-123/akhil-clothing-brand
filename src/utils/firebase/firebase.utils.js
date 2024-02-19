@@ -39,15 +39,12 @@ export const db = getFirestore();
 export const createUserDocumentFromAuth = async (userFromAuth) => {
     const collection =  "users";
     const uniqueIdOfDoc =  userFromAuth.uid;
-    console.log(uniqueIdOfDoc);
     // if the collection or doc with this uid does not exist Firebase generates it
     // and sends the reference of it.
     const userDocRef = doc(db, collection, uniqueIdOfDoc);
-    console.log(userDocRef);
+
     // gets the data from the doc
     const userSnapshot = await getDoc(userDocRef);
-    console.log(userSnapshot);
-    console.log(userSnapshot.exists());
     // this method tells us if there is data in this document
     
     if (!userSnapshot.exists()) {
@@ -61,8 +58,6 @@ export const createUserDocumentFromAuth = async (userFromAuth) => {
                 createdAt
             });
             const userSnapshot = await getDoc(userDocRef);
-            console.log(userSnapshot);
-            console.log(userSnapshot.exists());
         } catch (error) {
             console.log("Error storing user data", error.message);
         }

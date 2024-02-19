@@ -9,7 +9,6 @@ const CartIcon = () => {
 
     const toggleIsCartOpen = () => {
         setIsCartOpen(!isCartOpen);
-        console.log("isCartOpen", isCartOpen);
     }
 
     return (

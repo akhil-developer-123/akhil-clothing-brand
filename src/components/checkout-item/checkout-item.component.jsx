@@ -7,15 +7,22 @@ const CheckoutItem = ({cartItem, incrementQuantity, decrementQuantity, removeIte
 
     return (
         <div className="checkout-item-container">
-            <h2>{name}</h2>
-            <div className="quantity-container">
-                <button onClick={() => decrementQuantity(cartItem)}>-</button>
-                    <p>{quantity}</p>
-                <button onClick={() => incrementQuantity(cartItem)}>+</button>
+            <div className="image-container">
+                <img  src={imageUrl} alt={name}/>
             </div>
-            <p>${price * quantity}</p>
-            <div className="remove-item">
-            <button onClick={() => removeItem(cartItem)}>X</button>
+            <div className="name">{name}</div>
+            <div className="quantity">
+                <span className="arrow" onClick={() => decrementQuantity(cartItem)}>
+                    <b>&lt;</b>
+                </span>
+                <span className="value">{quantity}</span>
+                <span className="arrow" onClick={() => incrementQuantity(cartItem)}>
+                    <b>&gt;</b>
+                </span>
+            </div>
+            <span className="price">${price * quantity}</span>
+            <div className="remove-button">
+                <span onClick={() => removeItem(cartItem)}>X</span>
             </div>
         </div>
     );
