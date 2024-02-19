@@ -5,7 +5,10 @@ import { CartContext } from '../../contexts/cart.context';
 
 const ProductCard = ({product}) => {
     const {id, name, price, imageUrl } = product;
-    const { cartItems, setCartItems, cartSize, setCartSize } = useContext(CartContext);
+    const { cartItems, setCartItems, 
+            cartSize, setCartSize,
+            totalPrice, setTotalPrice
+    } = useContext(CartContext);
 
     const addProductToCart = () => {
         const defaultCartItem = {
@@ -19,6 +22,7 @@ const ProductCard = ({product}) => {
         newCartItemList[id] = newCartItem
         setCartItems(newCartItemList);
         setCartSize(cartSize + 1);
+        setTotalPrice(totalPrice + price);
     }
     
     return (
