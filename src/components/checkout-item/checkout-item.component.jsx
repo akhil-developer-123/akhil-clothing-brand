@@ -13,11 +13,11 @@ const CheckoutItem = ({cartItem, incrementQuantity, decrementQuantity, removeIte
             <div className="name">{name}</div>
             <div className="quantity">
                 <span className="arrow" onClick={() => decrementQuantity(cartItem)}>
-                    <b>&lt;</b>
+                    <b>&#10094;</b>
                 </span>
                 <span className="value">{quantity}</span>
                 <span className="arrow" onClick={() => incrementQuantity(cartItem)}>
-                    <b>&gt;</b>
+                    <b>&#10095;</b>
                 </span>
             </div>
             <span className="price">${price * quantity}</span>

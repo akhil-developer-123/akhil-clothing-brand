@@ -69,11 +69,13 @@ const Checkout = () => {
             </div>
             {
                 Object.values(cartItems).map(cartItem => {
-                    return <CheckoutItem key={cartItem.id} cartItem={cartItem}
+                    return <CheckoutItem 
+                        key={cartItem.id} 
+                        cartItem={cartItem}
                         incrementQuantity={incrementQuantity}
                         decrementQuantity={decrementQuantity}
                         removeItem={removeItem}
-                    />
+                        />;
                 })
             }
             <div className="total">
