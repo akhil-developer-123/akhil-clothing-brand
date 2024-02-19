@@ -5,7 +5,7 @@ import { useContext  } from 'react';
 
 const CartIcon = () => {
 
-    const { isCartOpen, setIsCartOpen } = useContext(CartContext);
+    const { isCartOpen, setIsCartOpen, cartItems, cartSize } = useContext(CartContext);
 
     const toggleIsCartOpen = () => {
         setIsCartOpen(!isCartOpen);
@@ -15,7 +15,7 @@ const CartIcon = () => {
     return (
         <div className="cart-icon-container" onClick={toggleIsCartOpen}>
             <CartSvg className='shopping-icon'/>
-            <span className='item-count'>0</span>
+            <span className='item-count'>{cartSize}</span>
         </div>
     ); 
 };

@@ -11,9 +11,6 @@ const Shop = () => {
     useEffect(() => {
         setProducts(productsData);
     }, []);
-    
-
-    console.log("products", products);
 
     return (
         <div className="products-container">

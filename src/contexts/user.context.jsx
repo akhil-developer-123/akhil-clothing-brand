@@ -15,8 +15,6 @@ export const UserProvider = ({children}) => {
     const value = {currentUser, setCurrentUser};
 
     const handleAuth = async (user) => {
-        console.log("user from react context", currentUser);
-        console.log("user from auth", user);
         if (user) {
             await createUserDocumentFromAuth(user);
         }
