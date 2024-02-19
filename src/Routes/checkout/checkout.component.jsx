@@ -37,6 +37,15 @@ const Checkout = () => {
         setTotalPrice(totalPrice - price);
     }
 
+    const removeItem = (checkoutItem) => {
+        const {id, price, quantity} = checkoutItem;
+        const newCartItemList = {...cartItems};
+        delete newCartItemList[id];
+        setCartItems(newCartItemList);
+        setCartSize(cartSize - quantity);
+        setTotalPrice(totalPrice - price * quantity);
+    }
+
     return (
         
         <div className="checkout-container">
@@ -45,6 +54,7 @@ const Checkout = () => {
                     return <CheckoutItem key={cartItem.id} cartItem={cartItem}
                         incrementQuantity={incrementQuantity}
                         decrementQuantity={decrementQuantity}
+                        removeItem={removeItem}
                     />
                 })
             }

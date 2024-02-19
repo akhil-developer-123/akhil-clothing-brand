@@ -2,7 +2,7 @@
 import Button from "../button/Button.component";
 import "./checkout-item.styles.scss";
 
-const CheckoutItem = ({cartItem, incrementQuantity, decrementQuantity}) => {
+const CheckoutItem = ({cartItem, incrementQuantity, decrementQuantity, removeItem}) => {
     const {id, name, quantity, imageUrl, price} = cartItem;
 
     return (
@@ -14,6 +14,9 @@ const CheckoutItem = ({cartItem, incrementQuantity, decrementQuantity}) => {
                 <button onClick={() => incrementQuantity(cartItem)}>+</button>
             </div>
             <p>${price * quantity}</p>
+            <div className="remove-item">
+            <button onClick={() => removeItem(cartItem)}>X</button>
+            </div>
         </div>
     );
 }
