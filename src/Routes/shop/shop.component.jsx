@@ -1,6 +1,16 @@
+import products from "./shop-data.json";
+import ProductCard from "../../components/product-card/product-card.component";
+import "./shop.styles.scss";
+
 const Shop = () => {
     return (
-        <h1> This is shop </h1>
+        <div className="products-container">
+            {
+                products.map((product) => {
+                    return <ProductCard key={product.id} product={product}/>
+                })
+            }
+        </div>
     );
 }
 

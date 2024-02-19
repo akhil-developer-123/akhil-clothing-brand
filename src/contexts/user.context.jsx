@@ -20,12 +20,16 @@ export const UserProvider = ({children}) => {
         if (user) {
             await createUserDocumentFromAuth(user);
         }
-        setCurrentUser(user);
+        setCurrentUser(user); 
     }
 
     // This runs only once on mounting the component
     useEffect(() => {
         const unsubscribe = onAuthStateChangedListener(handleAuth);
+
+        // sign out the user on initial mounting of application
+        // this is because the auth data in firebase is persisted even after refreshing.
+        signOutUser();
         // unsubsribe whenever the component unmounts
         // i.e stop listening to Auth object
         return unsubscribe;
