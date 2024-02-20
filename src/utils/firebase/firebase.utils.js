@@ -100,9 +100,7 @@ export const logGoogleUser = async () => {
 
 export const signOutUser = async () => {
     try {
-        const signOutResponse = await signOut(auth);
-        console.log(signOutResponse);
-        return signOutResponse;
+        return await signOut(auth);
     } catch(error) {
         console.log("could not sign out user", error.message);
     }
@@ -124,7 +122,6 @@ export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => 
     })
 
     await batch.commit();
-    console.log('done');
 }
 
 export const getCategoriesAndDocumentsFromFirestore = async () => {
@@ -137,6 +134,5 @@ export const getCategoriesAndDocumentsFromFirestore = async () => {
         acc.push(curDocSnapShot.data());
         return acc;
     }, []);
-    console.log("categories", categoryData);
     return categoryData;
 }

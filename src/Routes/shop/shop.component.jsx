@@ -1,25 +1,14 @@
-import ProductCard from "../../components/product-card/product-card.component";
 import "./shop.styles.scss";
-import { useContext } from "react";
-import { CategoriesContext } from "../../contexts/categories.context";
-
-import { useEffect } from 'react';
-import { getCategoriesAndDocumentsFromFirestore } from "../../utils/firebase/firebase.utils";
+import CategoriesPreview from "../../components/categories-preview/categories-preview.component";
+import { Route, Routes } from "react-router-dom";
+import Category from "../category/category.component";
 
 const Shop = () => {
-
-    const { categories } = useContext(CategoriesContext);
-
     return (
-        <div className="products-container">
-            {
-                categories.map((category) => {
-                    return category.items.map((product) => {
-                        return <ProductCard key={product.id} product={product}/>;
-                    });
-                })
-            }
-        </div>
+        <Routes>
+            <Route index element={<CategoriesPreview />}></Route>
+            <Route path=":category" element={<Category />}></Route>
+         </Routes>
     );
 }
 
