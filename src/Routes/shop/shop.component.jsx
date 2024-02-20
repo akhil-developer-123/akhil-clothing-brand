@@ -1,22 +1,22 @@
-import productsData from "./shop-data.json";
 import ProductCard from "../../components/product-card/product-card.component";
 import "./shop.styles.scss";
 import { useContext } from "react";
-import { ProductsContext } from "../../contexts/products.context";
+import { CategoriesContext } from "../../contexts/categories.context";
+
 import { useEffect } from 'react';
+import { getCategoriesAndDocumentsFromFirestore } from "../../utils/firebase/firebase.utils";
 
 const Shop = () => {
 
-    const { products, setProducts } = useContext(ProductsContext);
-    useEffect(() => {
-        setProducts(productsData);
-    }, []);
+    const { categories } = useContext(CategoriesContext);
 
     return (
         <div className="products-container">
             {
-                products.map((product) => {
-                    return <ProductCard key={product.id} product={product}/>;
+                categories.map((category) => {
+                    return category.items.map((product) => {
+                        return <ProductCard key={product.id} product={product}/>;
+                    });
                 })
             }
         </div>

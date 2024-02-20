@@ -7,7 +7,8 @@ import { getAuth,
     signOut,
     onAuthStateChanged
 } from "firebase/auth";
-import { getFirestore, getDoc, setDoc, doc } from "firebase/firestore";
+import { getFirestore, getDoc, setDoc, doc, collection, writeBatch, query,
+    getDocs } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBpid0RWQ6seofn-0RqoJ8P1728vTB7Clw",
@@ -112,4 +113,30 @@ export const onAuthStateChangedListener = (callbackFn) => {
     // whenever "auth" state is changed, the callbackFn runs
     // i.e listener to "auth"
     return onAuthStateChanged(auth, callbackFn);
+}
+
+export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
+    const collectionRef = collection(db, collectionKey);
+    const batch = writeBatch(db);
+    objectsToAdd.map((objectToAdd) => {
+        const docRef = doc(collectionRef, objectToAdd.title.toLowerCase());
+        batch.set(docRef, objectToAdd);
+    })
+
+    await batch.commit();
+    console.log('done');
+}
+
+export const getCategoriesAndDocumentsFromFirestore = async () => {
+    const collectionRef = collection(db, 'categories');
+    const q = query(collectionRef);
+
+    const querySnapshot = await getDocs(q);
+    
+    const categoryData = querySnapshot.docs.reduce((acc, curDocSnapShot) => {
+        acc.push(curDocSnapShot.data());
+        return acc;
+    }, []);
+    console.log("categories", categoryData);
+    return categoryData;
 }
