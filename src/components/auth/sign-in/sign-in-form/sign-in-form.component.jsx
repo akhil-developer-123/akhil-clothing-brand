@@ -5,6 +5,7 @@ import { logAuthUserWithEmailAndPassword,
         } from "../../../../utils/firebase/firebase.utils";
 import '../../sign-up/sign-up-form/sign-up-form.styles.scss';
 import Button from "../../../button/Button.component";
+import { ButtonsContainerStyled } from "../sign-in.styles";
 
 const SignInForm = () => {
 
@@ -59,12 +60,12 @@ const SignInForm = () => {
                     onChange={onChangeHandler}
                 />
             </div>
-            <div className="buttons-container" >
+            <ButtonsContainerStyled>
                 <Button type="submit" buttonType='inverted'>SIGN IN</Button>
                 <Button onClick={logGoogleUser} buttonType='googleSignIn' type='button'>
                     SIGN IN WITH GOOGLE
                 </Button>
-            </div>
+            </ButtonsContainerStyled>
         </form>
     );
 }

@@ -1,15 +1,15 @@
 import Category from "../category/category.component";
-import "./category-list.styles.scss";
+import { CategoryListStyled } from "./category-list.styles";
 
 const CategoryList = ({categories}) => {
     return (
-        <div className="category-list">
-        {
-            categories.map((category) => {
-                return <Category key={category.id} category={category}/>    
-            })
-        }
-        </div>
+        <CategoryListStyled>
+            {
+                categories.map((category) => {
+                    return <Category key={category.id} category={category}/>    
+                })
+            }
+        </CategoryListStyled>
     );
 }
 

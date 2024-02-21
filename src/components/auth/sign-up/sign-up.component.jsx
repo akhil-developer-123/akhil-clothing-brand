@@ -1,13 +1,14 @@
 import SignUpForm from "./sign-up-form/sign-up-form.component";
 import "./sign-up.styles.scss";
+import {SignUpContainerStyled, H2Styled} from "./sign-up.styles";
 
 const SignUp = () => {
     return (
-        <div className="sign-up-container">
-            <h2>Don't have an account?</h2>
+        <SignUpContainerStyled>
+            <H2Styled>Don't have an account?</H2Styled>
             <span>Sign up with your email and password</span>
             <SignUpForm />
-        </div>
+        </SignUpContainerStyled>
     );
 }
 

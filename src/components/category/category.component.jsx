@@ -1,5 +1,6 @@
-import '../category-list/category-list.styles.scss';
+// import '../category-list/category-list.styles.scss';
 import { useNavigate } from 'react-router-dom';
+import { CategoryStyled, BackgroundImageStyled, DetailsStyled, TitleStyled, ShopStyled } from "../category/category.styles";
 
 const Category = ({category}) => {
     const { title, imageUrl} = category;
@@ -10,17 +11,17 @@ const Category = ({category}) => {
     }
 
     return (
-        <div className="category">
-            <div className="background-image" style={
+        <CategoryStyled>
+            <BackgroundImageStyled style={
                 {
                     backgroundImage: `url(${imageUrl})`
                 }
             }/>
-            <div className="details" onClick={navigateToShopCategory}>
-                <h2>{title}</h2>
-                <p>Shop</p>
-            </div>
-        </div>
+            <DetailsStyled onClick={navigateToShopCategory}>
+                <TitleStyled>{title}</TitleStyled>
+                <ShopStyled>Shop</ShopStyled>
+            </DetailsStyled>
+        </CategoryStyled>
     );
 }
 

@@ -2,6 +2,8 @@ import { useParams } from "react-router-dom";
 import ProductCard  from "../../components/product-card/product-card.component";
 import { Fragment, useContext, useEffect, useState } from "react";
 import { CategoriesContext } from "../../contexts/categories.context";
+import { Title } from "./category.styles"; 
+import { ProductsContainer } from "../shop/shop.styles";
 
 const Category = () => {
     
@@ -22,14 +24,14 @@ const Category = () => {
 
     return (
         <Fragment>
-            <h2 className="title" style={{textAlign:"center"}}>{category.toUpperCase()}</h2>
-            <div className="products-container">
+            <Title>{category}</Title>
+            <ProductsContainer>
                 {
                     products && products.map((product) => {
                         return <ProductCard key={product.id} product={product}/>;
                     })
                 }
-            </div>
+            </ProductsContainer>
         </Fragment>
     );
 }
