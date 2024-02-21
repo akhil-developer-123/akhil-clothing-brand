@@ -1,4 +1,3 @@
-// import "./checkout-item.styles.scss";
 import  {CheckoutItemContainer,
          ImageContainer,
          ImgStyled,

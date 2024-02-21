@@ -1,4 +1,3 @@
-// import '../category-list/category-list.styles.scss';
 import { useNavigate } from 'react-router-dom';
 import { CategoryStyled, BackgroundImageStyled, DetailsStyled, TitleStyled, ShopStyled } from "../category/category.styles";
 

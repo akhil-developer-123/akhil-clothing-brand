@@ -3,9 +3,14 @@ import { logAuthUserWithEmailAndPassword,
         createUserDocumentFromAuth, 
         logGoogleUser 
         } from "../../../../utils/firebase/firebase.utils";
-import '../../sign-up/sign-up-form/sign-up-form.styles.scss';
-import Button from "../../../button/Button.component";
+
+import Button, { BUTTON_TYPES } from "../../../button/Button.component";
 import { ButtonsContainerStyled } from "../sign-in.styles";
+import { FormInputLabelStyled, 
+         FormInputStyled, 
+         GroupStyled 
+        } from "../../sign-up/sign-up-form/sign-up-form.styles";
+
 
 const SignInForm = () => {
 
@@ -15,7 +20,7 @@ const SignInForm = () => {
     }
 
     const [ loginFormFields, setLoginFormFields  ] = useState(defaultLoginFormFields); 
-    console.log(loginFormFields);
+    const {email, password} = loginFormFields;
 
     const onChangeHandler = (event) => {
         const {name, value} = event.target;
@@ -36,33 +41,30 @@ const SignInForm = () => {
         }
     }
 
-    const shrinkLabelClass = (field) => {
-        return field.length > 0 ? 'shrink': '';
-    }
 
     return (
         <form onSubmit={onSubmitHandler}>
-            <div className="group">
-                <label className={`form-input-label ${shrinkLabelClass(loginFormFields.email)}`}>Email</label>
-                <input className="form-input" required 
+            <GroupStyled>
+                <FormInputLabelStyled shrink={email.length}>Email</FormInputLabelStyled>
+                <FormInputStyled required 
                     name="email"
                     type="email"
-                    value={loginFormFields.email}
+                    value={email}
                     onChange={onChangeHandler} 
                 />
-            </div>
-            <div className="group">
-                <label className={`form-input-label ${shrinkLabelClass(loginFormFields.password)}`}>Password</label>
-                <input className="form-input" required 
+            </GroupStyled>
+            <GroupStyled>
+                <FormInputLabelStyled shrink={password.length}>Password</FormInputLabelStyled>
+                <FormInputStyled required 
                     name="password"
                     type="password"
-                    value={loginFormFields.password}
+                    value={password}
                     onChange={onChangeHandler}
                 />
-            </div>
+            </GroupStyled>
             <ButtonsContainerStyled>
-                <Button type="submit" buttonType='inverted'>SIGN IN</Button>
-                <Button onClick={logGoogleUser} buttonType='googleSignIn' type='button'>
+                <Button type="submit" buttonType={BUTTON_TYPES.inverted}>SIGN IN</Button>
+                <Button onClick={logGoogleUser} buttonType={BUTTON_TYPES.googleSignIn} type='button'>
                     SIGN IN WITH GOOGLE
                 </Button>
             </ButtonsContainerStyled>

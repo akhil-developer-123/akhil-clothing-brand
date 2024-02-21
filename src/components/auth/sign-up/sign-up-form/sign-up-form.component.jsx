@@ -1,10 +1,13 @@
-import "./sign-up-form.styles.scss";
 import { useState } from "react";
 import { createAuthUserFromEmailAndPassword, 
     createUserDocumentFromAuth } from "../../../../utils/firebase/firebase.utils";
 import Button from "../../../button/Button.component";
+import { GroupStyled, 
+         FormInputStyled,
+         FormInputLabelStyled,
+        } from "./sign-up-form.styles";
 
-
+          
 const SignUpForm = () => {
 
     const formFieldsData = {
@@ -15,7 +18,7 @@ const SignUpForm = () => {
     }
 
     const [formData, setFormData] = useState(formFieldsData);
-    console.log(formData);
+    const { displayName, email, password, confirmPassword } = formData;
 
     const onChangeHandler = (event) => {
         const { name, value } = event.target;
@@ -45,52 +48,48 @@ const SignUpForm = () => {
             }
         }
     }
-
-    const shrinkLabelClass = (field) => {
-        return field.length > 0 ? 'shrink': '';
-    }
-
+    
     return (
         <form onSubmit={onSubmitHandler}>
-            <div className="group">
-                <label className={`form-input-label ${shrinkLabelClass(formData.displayName)}`}>Display Name</label>
-                <input 
-                className="form-input"
+            <GroupStyled>
+                <FormInputLabelStyled shrink={displayName.length}>Display Name</FormInputLabelStyled>
+                <FormInputStyled 
                     name="displayName"
                     type="text"
                     onChange={onChangeHandler}
+                    value={displayName}
                 />
-            </div>
+            </GroupStyled>
 
-            <div className="group">
-                <label className={`form-input-label ${shrinkLabelClass(formData.email)}`}>Email</label>
-                <input required
-                className="form-input"
+            <GroupStyled>
+                <FormInputLabelStyled shrink={email.length}>Email</FormInputLabelStyled>
+                <FormInputStyled required
                     name="email"      
                     type="email"
                     onChange={onChangeHandler}
+                    value={email}
                 />
-            </div> 
+            </GroupStyled> 
 
-            <div className="group">
-              <label className={`form-input-label ${shrinkLabelClass(formData.password)}`}>Password</label>
-                <input required
-                className="form-input"
+            <GroupStyled>
+              <FormInputLabelStyled shrink={password.length}>Password</FormInputLabelStyled>
+                <FormInputStyled required
                     name="password" 
                     type="password"
                     onChange={onChangeHandler}
+                    value={password}
                 />
-            </div>
+            </GroupStyled>
 
-            <div className="group">
-                <label className={`form-input-label ${shrinkLabelClass(formData.confirmPassword)}`}>Confirm Password</label>
-                <input required
-                className="form-input"
+            <GroupStyled>
+                <FormInputLabelStyled shrink={confirmPassword.length}>Confirm Password</FormInputLabelStyled>
+                <FormInputStyled required
                     name="confirmPassword"
                     type="password"   
                     onChange={onChangeHandler}
+                    value={confirmPassword}
                 />
-            </div>
+            </GroupStyled>
 
             <Button type="submit" buttonType='inverted'>Sign up</Button>
     </form>

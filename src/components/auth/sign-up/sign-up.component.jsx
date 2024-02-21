@@ -1,5 +1,4 @@
 import SignUpForm from "./sign-up-form/sign-up-form.component";
-import "./sign-up.styles.scss";
 import {SignUpContainerStyled, H2Styled} from "./sign-up.styles";
 
 const SignUp = () => {

@@ -1,4 +1,8 @@
 import styled from "styled-components";
+import { BaseButtonStyled,
+         GoogleSigninButtonStyled,
+         InvertedButtonStyled } 
+        from "../button/button.styles";
 
 export const ProductCardContainer = styled.div`
     width: 100%;
@@ -7,29 +11,31 @@ export const ProductCardContainer = styled.div`
     height: 350px;
     align-items: center;
     position: relative;
-`;
-
-export const ImgStyled  = styled.img`
-    width: 100%;
-    height: 95%;
-    object-fit: cover;
-    margin-bottom: 5px;
-
-    ${ProductCardContainer}:hover & {
-        opacity: 0.8;
+  
+    img {
+      width: 100%;
+      height: 95%;
+      object-fit: cover;
+      margin-bottom: 5px;
     }
-`;
-
-export const ButtonStyled = styled.button`
-    width: 80%;
-    opacity: 0.7;
-    position: absolute;
-    top: 255px;
-    display: none;
-
-    ${ProductCardContainer}:hover & {
+  
+    button {
+      width: 80%;
+      opacity: 0.7;
+      position: absolute;
+      top: 255px;
+      display: none;
+    }
+  
+    &:hover {
+      img {
+        opacity: 0.8;
+      }
+  
+      button {
         opacity: 0.85;
         display: flex;
+      }
     }
 `;
 

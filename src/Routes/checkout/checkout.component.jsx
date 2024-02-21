@@ -1,7 +1,11 @@
 import CheckoutItem from "../../components/checkout-item/checkout-item.component";
 import { CartContext } from "../../contexts/cart.context";
 import { useContext } from 'react';
-import "./checkout.styles.scss";
+import { CheckoutContainerStyled, 
+         CheckoutHeaderStyled,
+         HeaderBlockStyled,
+         TotalStyled
+        } from "./checkout.styles";
 
 const Checkout = () => {
 
@@ -48,24 +52,24 @@ const Checkout = () => {
     }
 
     return (
-        <div className="checkout-container">
-            <div className="checkout-header">
-                <div className="header-block">
+        <CheckoutContainerStyled>
+            <CheckoutHeaderStyled>
+                <HeaderBlockStyled>
                     <span>Product</span>
-                </div>
-                <div className="header-block">
+                </HeaderBlockStyled>
+                <HeaderBlockStyled>
                     <span>Description</span>
-                </div>
-                <div className="header-block">
+                </HeaderBlockStyled>
+                <HeaderBlockStyled>
                     <span>Quantity</span>
-                </div>
-                <div className="header-block">
+                </HeaderBlockStyled>
+                <HeaderBlockStyled>
                     <span>Price</span>
-                </div>
-                <div className="header-block">
+                </HeaderBlockStyled>
+                <HeaderBlockStyled>
                     <span>Remove</span>
-                </div>
-            </div>
+                </HeaderBlockStyled>
+            </CheckoutHeaderStyled>
             {
                 Object.values(cartItems).map(cartItem => {
                     return <CheckoutItem 
@@ -77,10 +81,10 @@ const Checkout = () => {
                         />;
                 })
             }
-            <div className="total">
+            <TotalStyled>
                 Total Price: ${totalPrice}
-            </div>
-        </div>
+            </TotalStyled>
+        </CheckoutContainerStyled>
     );
 }
 
