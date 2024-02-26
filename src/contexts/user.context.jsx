@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from "react"; 
+import { createContext, useEffect, useReducer } from "react"; 
 import { onAuthStateChangedListener } from "../utils/firebase/firebase.utils";
 import { createUserDocumentFromAuth, signOutUser } from "../utils/firebase/firebase.utils";
 
@@ -8,10 +8,24 @@ export const UserContext = createContext({
     setCurrentUser: () => null
 });
 
+export const USER_ACTION_TYPES = {
+    SET_CURRENT_USER : 'SET_CURRENT_USER'
+}
+
+export const INITIAL_USER_STATE = {
+    currentUser: null
+}
 
 // UserProvider is a wrapper for the parent component to provide access to the context
 export const UserProvider = ({children}) => {
-    const [currentUser, setCurrentUser] = useState(null);
+
+    const [state, dispatch] = useReducer(UserReducer, INITIAL_USER_STATE);
+    const { currentUser } = state;
+
+    const setCurrentUser = (user) => {
+        dispatch({type: USER_ACTION_TYPES.SET_CURRENT_USER, payload: user})
+    }
+
     const value = {currentUser, setCurrentUser};
 
     const handleAuth = async (user) => {
@@ -34,4 +48,20 @@ export const UserProvider = ({children}) => {
     }, []);
 
     return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
+}
+
+
+export const UserReducer = (state, action) => {
+    console.log('dispatched');
+    console.log(action);
+    const { type, payload } = action;
+    switch(type) {
+        case USER_ACTION_TYPES.SET_CURRENT_USER:
+            return {
+                ...state,
+                currentUser: payload
+            };
+        default: 
+            throw new Error(`unhandled action type ${type}`);
+    }
 }
