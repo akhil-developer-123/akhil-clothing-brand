@@ -1,0 +1,22 @@
+export const USER_ACTION_TYPES = {
+    SET_CURRENT_USER : 'SET_CURRENT_USER'
+}
+
+export const INITIAL_USER_STATE = {
+    currentUser: null
+}
+
+// every action is passed to all reducers, 
+// so if actions of a reducer does not match, simply return the original state.
+export const UserReducer = (state = INITIAL_USER_STATE, action) => {
+    const { type, payload } = action;
+    switch(type) {
+        case USER_ACTION_TYPES.SET_CURRENT_USER:
+            return {
+                ...state,
+                currentUser: payload
+            };
+        default: 
+            return state;
+    }
+}
