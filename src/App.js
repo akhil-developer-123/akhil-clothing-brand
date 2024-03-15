@@ -6,8 +6,41 @@ import Checkout from './Routes/checkout/checkout.component';
 
 import { Routes, Route } from 'react-router-dom';
 import Authentication from './Routes/authentication/authentication.component';
+import { onAuthStateChangedListener } from "./utils/firebase/firebase.utils";
+import { useDispatch } from 'react-redux';
+import { setCurrentUser } from "./store/user/user.action";
+import { setCategories } from "./store/categories/categories.action";
+
+import { useEffect } from 'react'; 
+import { createUserDocumentFromAuth, 
+          getCategoriesAndDocumentsFromFirestore } 
+        from "./utils/firebase/firebase.utils";
 
 const App = () => {
+
+  const dispatch = useDispatch();
+
+  const handleAuth = async (user) => {
+    if (user) {
+        await createUserDocumentFromAuth(user);
+    }
+    const actionObject = setCurrentUser(user);
+    dispatch(actionObject);
+  }
+
+  const getCategories = async () => {
+    const SHOP_DATA = await getCategoriesAndDocumentsFromFirestore();
+    const actionObject = setCategories(SHOP_DATA);
+    dispatch(actionObject);
+  }
+
+// This runs only once on mounting the component
+  useEffect(() => {
+      const unsubscribe = onAuthStateChangedListener(handleAuth);
+      getCategories();
+      return unsubscribe;
+  }, []);
+
   return (
     <Routes>
       <Route path='/' element={<NavigationBar />}>

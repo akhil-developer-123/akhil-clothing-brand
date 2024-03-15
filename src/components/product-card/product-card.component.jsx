@@ -1,19 +1,20 @@
 import Button, { BUTTON_TYPES } from "../button/Button.component";
-import { useContext } from 'react';
-import { CartContext } from '../../contexts/cart.context';
-import { ProductCardContainer, 
-         ImgStyled, 
+
+import { ProductCardContainer,  
          FooterStyled, 
          NameStyled, 
          PriceStyled } 
         from "./product-card.styles";
+import { selectCartItems } from "../../store/cart/cart.selector";
+import { setCartItems } from "../../store/cart/cart.action";
+import { useDispatch, useSelector } from "react-redux";
 
+ 
 const ProductCard = ({product}) => {
     const {id, name, price, imageUrl } = product;
-    const { cartItems, setCartItems, 
-            cartSize, setCartSize,
-            totalPrice, setTotalPrice
-    } = useContext(CartContext);
+    const dispatch = useDispatch();
+
+    const cartItems = useSelector(selectCartItems);
 
     const addProductToCart = () => {
         const defaultCartItem = {
@@ -24,10 +25,10 @@ const ProductCard = ({product}) => {
             ...cartItem, quantity: cartItem.quantity + 1
         };
         const newCartItemList = {...cartItems};
-        newCartItemList[id] = newCartItem
-        setCartItems(newCartItemList);
-        setCartSize(cartSize + 1);
-        setTotalPrice(totalPrice + price);
+        newCartItemList[id] = newCartItem;
+        
+        const setCartItemsActionObject = setCartItems(newCartItemList);
+        dispatch(setCartItemsActionObject);
     }
     
     return (

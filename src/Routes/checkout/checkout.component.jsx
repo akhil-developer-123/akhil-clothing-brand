@@ -1,17 +1,25 @@
 import CheckoutItem from "../../components/checkout-item/checkout-item.component";
-import { CartContext } from "../../contexts/cart.context";
-import { useContext } from 'react';
 import { CheckoutContainerStyled, 
          CheckoutHeaderStyled,
          HeaderBlockStyled,
          TotalStyled
         } from "./checkout.styles";
+import { selectCartItems, selectCartSize, selectCartTotalPrice } from "../../store/cart/cart.selector";
+import { setCartItems } from "../../store/cart/cart.action";
+import { useDispatch, useSelector } from "react-redux";
 
 const Checkout = () => {
 
-    const { cartItems, setCartItems,
-            cartSize, setCartSize,
-            totalPrice, setTotalPrice } = useContext(CartContext);
+    const dispatch = useDispatch();
+
+    const cartItems = useSelector(selectCartItems);
+    const cartSize =  useSelector(selectCartSize);
+    const totalPrice = useSelector(selectCartTotalPrice);
+
+    const setCartItemsAndDispatch = (newCartItemList) => {
+        const setCartItemsActionObject = setCartItems(newCartItemList);
+        dispatch(setCartItemsActionObject);
+    }
 
     const incrementQuantity = (checkoutItem) => {
         const {id, price} = checkoutItem;
@@ -21,13 +29,11 @@ const Checkout = () => {
         };
         const newCartItemList = {...cartItems};
         newCartItemList[id] = newCartItem
-        setCartItems(newCartItemList);
-        setCartSize(cartSize + 1);
-        setTotalPrice(totalPrice + price);
+        setCartItemsAndDispatch(newCartItemList);
     }
 
     const decrementQuantity = (checkoutItem) => {
-        const {id, price} = checkoutItem;
+        const { id } = checkoutItem;
         const newCartItemList = {...cartItems};
         if (checkoutItem.quantity == 1) {
             delete newCartItemList[id];
@@ -37,18 +43,14 @@ const Checkout = () => {
             };
             newCartItemList[id] = newCartItem;
         }
-        setCartItems(newCartItemList);
-        setCartSize(cartSize - 1);
-        setTotalPrice(totalPrice - price);
+        setCartItemsAndDispatch(newCartItemList);
     }
 
     const removeItem = (checkoutItem) => {
-        const {id, price, quantity} = checkoutItem;
+        const {id} = checkoutItem;
         const newCartItemList = {...cartItems};
         delete newCartItemList[id];
-        setCartItems(newCartItemList);
-        setCartSize(cartSize - quantity);
-        setTotalPrice(totalPrice - price * quantity);
+        setCartItemsAndDispatch(newCartItemList);
     }
 
     return (
