@@ -10,6 +10,7 @@ import { onAuthStateChangedListener } from "./utils/firebase/firebase.utils";
 import { useDispatch } from 'react-redux';
 import { setCurrentUser } from "./store/user/user.action";
 import { setCategories } from "./store/categories/categories.action";
+import { fetchCategoriesAsync } from './store/categories/categories.action';
 
 import { useEffect } from 'react'; 
 import { createUserDocumentFromAuth, 
@@ -29,9 +30,7 @@ const App = () => {
   }
 
   const getCategories = async () => {
-    const SHOP_DATA = await getCategoriesAndDocumentsFromFirestore();
-    const actionObject = setCategories(SHOP_DATA);
-    dispatch(actionObject);
+    dispatch(fetchCategoriesAsync());
   }
 
 // This runs only once on mounting the component

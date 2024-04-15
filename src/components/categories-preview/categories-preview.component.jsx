@@ -7,7 +7,7 @@ import { selectCategories } from "../../store/categories/categories.selector";
 const CategoriesPreview = () => {
     
     const categories = useSelector(selectCategories);
-
+    
     return (
         <Fragment>
             {

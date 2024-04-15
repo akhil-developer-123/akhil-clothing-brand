@@ -5,10 +5,13 @@ import { selectCategories } from "../../store/categories/categories.selector";
 import { Title } from "./category.styles"; 
 import { ProductsContainer } from "../shop/shop.styles";
 import { useSelector } from "react-redux";
+import Spinner  from "../../components/spinner/spinner.component";
+import { selectCategoriesIsLoading } from "../../store/categories/categories.selector"; 
 
 const Category = () => {
     
     const categories  = useSelector(selectCategories);
+    const isLoading = useSelector(selectCategoriesIsLoading);
     const { category } = useParams();
 
     const findCategoryItems = (title) => {
@@ -27,13 +30,17 @@ const Category = () => {
     return (
         <Fragment>
             <Title>{category}</Title>
-            <ProductsContainer>
-                {
-                    products && products.map((product) => {
-                        return <ProductCard key={product.id} product={product}/>;
-                    })
-                }
-            </ProductsContainer>
+            {
+                isLoading ? (<Spinner />) : (
+                    <ProductsContainer>
+                        {
+                            products && products.map((product) => {
+                                return <ProductCard key={product.id} product={product}/>;
+                            })
+                        }
+                    </ProductsContainer>
+                )
+            }
         </Fragment>
     );
 }
