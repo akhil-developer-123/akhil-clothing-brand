@@ -49,7 +49,7 @@ const PaymentForm = () => {
             payment_method: {
                 card: elements.getElement(CardElement),
                 billing_details: {
-                    name: currentUser ? currentUser: 'Guest'
+                    name: currentUser ? currentUser.displayName: 'Guest'
                 }
             }
         });
