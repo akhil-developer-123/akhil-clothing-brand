@@ -11,14 +11,3 @@ export const fetchCategoriesSuccess = (categories) =>
 
 export const fetchCategoriesFailed = (error) => 
     createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_FAILED, error);
-
-// redux thunk function
-export const fetchCategoriesAsync = () => async (dispatch) => {
-    dispatch(fetchCategoriesStart());
-    try {
-        const categories_data = await getCategoriesAndDocumentsFromFirestore();
-        dispatch(fetchCategoriesSuccess(categories_data));
-    } catch(error) {
-        dispatch(fetchCategoriesFailed(error));
-    }
-}

@@ -7,6 +7,7 @@ import { CheckoutContainerStyled,
 import { selectCartItems, selectCartSize, selectCartTotalPrice } from "../../store/cart/cart.selector";
 import { setCartItems } from "../../store/cart/cart.action";
 import { useDispatch, useSelector } from "react-redux";
+import PaymentForm from "../../components/payment-form/payment-form.component";
 
 const Checkout = () => {
 
@@ -86,6 +87,7 @@ const Checkout = () => {
             <TotalStyled>
                 Total Price: ${totalPrice}
             </TotalStyled>
+            <PaymentForm />
         </CheckoutContainerStyled>
     );
 }

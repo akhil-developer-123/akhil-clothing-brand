@@ -9,8 +9,7 @@ import Authentication from './Routes/authentication/authentication.component';
 import { onAuthStateChangedListener } from "./utils/firebase/firebase.utils";
 import { useDispatch } from 'react-redux';
 import { setCurrentUser } from "./store/user/user.action";
-import { setCategories } from "./store/categories/categories.action";
-import { fetchCategoriesAsync } from './store/categories/categories.action';
+import { fetchCategoriesStart } from './store/categories/categories.action';
 
 import { useEffect } from 'react'; 
 import { createUserDocumentFromAuth, 
@@ -30,14 +29,14 @@ const App = () => {
   }
 
   const getCategories = async () => {
-    dispatch(fetchCategoriesAsync());
+    dispatch(fetchCategoriesStart());
   }
 
 // This runs only once on mounting the component
   useEffect(() => {
       const unsubscribe = onAuthStateChangedListener(handleAuth);
       getCategories();
-      return unsubscribe;
+      return unsubscribe; 
   }, []);
 
   return (

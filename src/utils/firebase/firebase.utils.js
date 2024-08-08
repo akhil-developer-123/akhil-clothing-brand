@@ -135,4 +135,4 @@ export const getCategoriesAndDocumentsFromFirestore = async () => {
         return acc;
     }, []);
     return categoryData;
-}
+}   
